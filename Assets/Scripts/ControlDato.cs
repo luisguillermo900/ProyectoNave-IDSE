@@ -5,6 +5,7 @@ using UnityEngine;
 public class ControlDato : MonoBehaviour
 {
     private Rigidbody rigidbody;
+    private AudioSource audioSource;
 
     void Start()
     {
@@ -12,6 +13,11 @@ public class ControlDato : MonoBehaviour
         if (rigidbody == null)
         {
             Debug.LogError("Rigidbody no encontrado!");
+        }
+        if (audioSource == null)
+        {
+            Debug.LogError("Audio Source no encontrado!");
+            audioSource = GetComponent<AudioSource>();
         }
     }
 
@@ -28,6 +34,14 @@ public class ControlDato : MonoBehaviour
         {
             Debug.Log("Propulsor");
             rigidbody.AddRelativeForce(Vector3.up * 10f);
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
+            else { 
+                audioSource.Stop();
+            }
+            
         }
 
         if (Input.GetKey(KeyCode.D))
